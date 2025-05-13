@@ -1,4 +1,4 @@
-
+/*
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         ChatBot chatBot = new ChatBot("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");
         Scanner scanner = new Scanner(System.in);
-
 
         System.out.println("Chat con memoria. Scrivi 'esci' per uscire.");
 
@@ -95,5 +94,50 @@ class ChatBot {
 
     private String escape(String input) {
         return input.replace("\"", "\\\"").replace("\n", "\\n");
+    }
+}
+*/
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String apiKey = "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";
+        HttpClient client = HttpClient.newHttpClient();
+        Scanner scanner = new Scanner(System.in);
+
+        List<ChatBot> allSessions = new ArrayList<>();
+
+        System.out.println("Chat con memoria. Scrivi 'esci' per terminare una sessione. Scrivi 'fine' per uscire completamente.");
+
+        while (true) {
+            ChatBot chatBot = new ChatBot(apiKey, client);
+            allSessions.add(chatBot);
+
+            System.out.println("\n--- Nuova chat ---");
+
+            while (true) {
+                chatBot.stampaStorico();
+                System.out.print("\nTu: ");
+                String userInput = scanner.nextLine();
+
+                if (userInput.equalsIgnoreCase("esci")) {
+                    System.out.println("Hai terminato questa sessione. Digita 'fine' per chiudere tutto o premi invio per iniziarne una nuova.");
+                    break;
+                }
+
+                if (userInput.equalsIgnoreCase("fine")) {
+                    System.out.println("Chatbot chiuso.");
+                    scanner.close();
+                    return;
+                }
+
+                String risposta = chatBot.chat(userInput);
+                System.out.println("Modello: " + risposta);
+            }
+        }
     }
 }
