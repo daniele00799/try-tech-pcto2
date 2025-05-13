@@ -7,7 +7,7 @@ class Chatbot {
     private String fileName;
     private List<String> storico;
 
-    public Chatbot(String fileName) throws IOException {
+    public Chatbot(String fileName, HttpClient client) throws IOException {
         this.fileName = fileName;
         this.storico = new ArrayList<>();
 

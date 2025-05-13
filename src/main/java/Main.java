@@ -109,12 +109,12 @@ public class Main {
         HttpClient client = HttpClient.newHttpClient();
         Scanner scanner = new Scanner(System.in);
 
-        List<ChatBot> allSessions = new ArrayList<>();
+        List<Chatbot> allSessions = new ArrayList<>();
 
         System.out.println("Chat con memoria. Scrivi 'esci' per terminare una sessione. Scrivi 'fine' per uscire completamente.");
 
         while (true) {
-            ChatBot chatBot = new ChatBot(apiKey, client);
+            Chatbot chatBot = new Chatbot(apiKey, client);
             allSessions.add(chatBot);
 
             System.out.println("\n--- Nuova chat ---");
